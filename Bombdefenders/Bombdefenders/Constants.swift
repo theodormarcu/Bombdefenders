@@ -11,3 +11,4 @@ import Foundation
 let BombCategory : UInt32 = 0x1 << 1
 let FloorCategory    : UInt32 = 0x1 << 2
 let WorldFrameCategory : UInt32 = 0x1 << 3
+let HumanCategory : UInt32 = 0x1 << 5

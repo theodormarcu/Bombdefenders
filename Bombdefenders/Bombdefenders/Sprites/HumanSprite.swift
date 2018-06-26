@@ -8,18 +8,34 @@
 
 import Foundation
 import SpriteKit
+import GameplayKit
 
-public class CatSprite : SKSpriteNode {
-    public static func newInstance() -> CatSprite {
-        let catSprite = CatSprite(imageNamed: "cat_one")
+public class HumanSprite : SKShapeNode {
+    private let movementSpeed : CGFloat = 100
+    
+    public static func newInstance() -> HumanSprite {
+        let humanWidth = 40
+        let humanHeight = 40
+        let humanSprite = HumanSprite(rectOf: CGSize(width: humanWidth,
+                                                    height: humanHeight))
         
-        catSprite.zPosition = 3
-        catSprite.physicsBody = SKPhysicsBody(circleOfRadius: catSprite.size.width / 2)
+        humanSprite.zPosition = 3
+        humanSprite.fillColor = SKColor.red
+        humanSprite.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: humanWidth,
+                                                               height: humanHeight))
+        humanSprite.physicsBody?.categoryBitMask = HumanCategory
+        humanSprite.physicsBody?.contactTestBitMask = BombCategory | WorldFrameCategory
         
-        return catSprite
+        return humanSprite
     }
     
     public func update(deltaTime : TimeInterval) {
+        if (position.x <= 20) {
+            position.x += movementSpeed * CGFloat(deltaTime)
+        } else{
+            position.x -= movementSpeed * CGFloat(deltaTime)
+        }
+        
         
     }
 }

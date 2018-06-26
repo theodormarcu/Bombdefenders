@@ -11,6 +11,9 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     private var lastUpdateTime : TimeInterval = 0
+    // Human
+    private var human : HumanSprite!
+    private let movementSpeed : CGFloat = 100
     
     // Spawner Variables
     private var currentBombSpawnTime : TimeInterval = 0
@@ -38,9 +41,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bomb.position = CGPoint(x: randomPosition, y: size.height)
         bomb.physicsBody?.categoryBitMask = BombCategory
         bomb.physicsBody?.contactTestBitMask = WorldFrameCategory
-        bomb.physicsBody?.collisionBitMask = 0
+//        bomb.physicsBody?.collisionBitMask = 0
         // Add to the Scene
         addChild(bomb)
+    }
+    
+    // Human Spawner
+    func spawnHuman() {
+        if let currentHuman = human, children.contains(currentHuman) {
+            human.removeFromParent()
+            human.removeAllActions()
+            human.physicsBody = nil
+        }
+        
+        human = HumanSprite.newInstance()
+        human.position = CGPoint(x: size.width / 2, y: 70)
+        addChild(human)
     }
     
     override func sceneDidLoad() {
@@ -69,6 +85,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         floorNode.physicsBody?.categoryBitMask = FloorCategory
         floorNode.physicsBody?.contactTestBitMask = BombCategory
         addChild(floorNode)
+        
+        spawnHuman()
 
     }
     
@@ -104,6 +122,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spawnBomb()
             counter += 1
         }
+        
+        human.update(deltaTime: dt)
     }
     
     // Detect Collisions
@@ -113,6 +133,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if (contact.bodyB.categoryBitMask == BombCategory) {
             contact.bodyB.node?.physicsBody?.collisionBitMask = 0
         }
+        
+        if contact.bodyA.categoryBitMask == HumanCategory || contact.bodyB.categoryBitMask == HumanCategory {
+            handleHumanCollision(contact: contact)
+            
+            return
+        }
+        
         if contact.bodyA.categoryBitMask == WorldFrameCategory {
             contact.bodyB.node?.removeFromParent()
             contact.bodyB.node?.physicsBody = nil
@@ -121,6 +148,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             contact.bodyA.node?.removeFromParent()
             contact.bodyA.node?.physicsBody = nil
             contact.bodyA.node?.removeAllActions()
+        }
+    }
+    
+    // Handle Human Collision
+    func handleHumanCollision(contact: SKPhysicsContact) {
+        var otherBody : SKPhysicsBody
+        
+        if contact.bodyA.categoryBitMask == HumanCategory {
+            otherBody = contact.bodyB
+        } else {
+            otherBody = contact.bodyA
+        }
+        
+        switch otherBody.categoryBitMask {
+        case BombCategory:
+            print("rain hit the player")
+            spawnHuman()
+        case WorldFrameCategory:
+            spawnHuman()
+        default:
+            print("Something hit the player")
         }
     }
 }
