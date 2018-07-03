@@ -15,6 +15,8 @@
 		12758A0520E0172300B72566 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12758A0420E0172300B72566 /* Constants.swift */; };
 		12C7C5E420EAF36E003CBBAA /* HumanSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C5E320EAF36E003CBBAA /* HumanSprite.swift */; };
 		12C7C5E820EB0342003CBBAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12C7C5E720EB0342003CBBAA /* Assets.xcassets */; };
+		12C7C5EB20EB2CAE003CBBAA /* ExplosionAnimation.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 12C7C5EA20EB2CAE003CBBAA /* ExplosionAnimation.atlas */; };
+		12C7C5ED20EB2E3B003CBBAA /* ExplosionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C5EC20EB2E3B003CBBAA /* ExplosionExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		12758A0420E0172300B72566 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		12C7C5E320EAF36E003CBBAA /* HumanSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanSprite.swift; sourceTree = "<group>"; };
 		12C7C5E720EB0342003CBBAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		12C7C5EA20EB2CAE003CBBAA /* ExplosionAnimation.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = ExplosionAnimation.atlas; path = ../../Graphics_Dev/Explosion/ExplosionAnimation.atlas; sourceTree = "<group>"; };
+		12C7C5EC20EB2E3B003CBBAA /* ExplosionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplosionExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,7 @@
 		127589EB20E0136800B72566 /* Bombdefenders */ = {
 			isa = PBXGroup;
 			children = (
+				12C7C5EA20EB2CAE003CBBAA /* ExplosionAnimation.atlas */,
 				12C7C5E720EB0342003CBBAA /* Assets.xcassets */,
 				12758A0620E01C5C00B72566 /* Sprites */,
 				127589EC20E0136800B72566 /* AppDelegate.swift */,
@@ -69,6 +74,7 @@
 				127589F420E0136800B72566 /* GameViewController.swift */,
 				127589FE20E0136900B72566 /* Info.plist */,
 				127589F620E0136800B72566 /* Main.storyboard */,
+				12C7C5EC20EB2E3B003CBBAA /* ExplosionExtension.swift */,
 			);
 			path = Bombdefenders;
 			sourceTree = "<group>";
@@ -139,6 +145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12C7C5EB20EB2CAE003CBBAA /* ExplosionAnimation.atlas in Resources */,
 				127589F820E0136800B72566 /* Main.storyboard in Resources */,
 				12C7C5E820EB0342003CBBAA /* Assets.xcassets in Resources */,
 				127589FD20E0136900B72566 /* LaunchScreen.storyboard in Resources */,
@@ -157,6 +164,7 @@
 				127589F520E0136800B72566 /* GameViewController.swift in Sources */,
 				127589ED20E0136800B72566 /* AppDelegate.swift in Sources */,
 				12758A0520E0172300B72566 /* Constants.swift in Sources */,
+				12C7C5ED20EB2E3B003CBBAA /* ExplosionExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

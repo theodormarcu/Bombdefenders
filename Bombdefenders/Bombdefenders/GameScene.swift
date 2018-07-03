@@ -11,15 +11,40 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     private var lastUpdateTime : TimeInterval = 0
+    
     // Human
     private var human : HumanSprite!
     private let movementSpeed : CGFloat = 100
-    
+
     // Spawner Variables
     private var currentBombSpawnTime : TimeInterval = 0
     private var bombSpawnRate : TimeInterval = 0.5
     private let random = GKARC4RandomSource()
-    var counter = 0
+
+    
+    // Explosion Texture Atlas
+    private var atlas: SKTextureAtlas!
+    private var textureAtlas: [SKTexture]!
+    
+    // random true/false generator
+    func randomBool() -> Bool {
+        return arc4random_uniform(2) == 0
+    }
+
+    
+    // explosion animation
+    func startExplosionAnimation(point: CGPoint) {
+        let explosion = SKSpriteNode(texture: textureAtlas[0])
+        explosion.position = point
+        explosion.zPosition = 4
+        self.addChild(explosion)
+        let timePerFrame = 0.02
+        let animationAction = SKAction.animate(with: textureAtlas, timePerFrame: timePerFrame)
+        explosion.run(animationAction, completion: {
+            explosion.removeFromParent()
+            explosion.removeAllActions()
+        })
+    }
     
     // Bomb Spawner
     func spawnBomb() {
@@ -54,7 +79,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             human.physicsBody = nil
         }
         
-        human = HumanSprite.newInstance()
+        human = HumanSprite(moveLeft: randomBool())
         human.position = CGPoint(x: size.width / 2, y: 70)
         addChild(human)
     }
@@ -65,6 +90,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background.position = CGPoint(x: frame.midX, y: frame.midY)
         background.zPosition = 0
         addChild(background)
+        // explosion
+        atlas = SKTextureAtlas(named: "ExplosionAnimation")
+        textureAtlas = atlas.textureArray()
         // Set Up World Frame (To Delete Stuff)
         var worldFrame = frame
         worldFrame.origin.x -= 100
@@ -79,13 +107,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Start Timer
         self.lastUpdateTime = 0
         
-        // Add Floor
-        let floorNode = SKShapeNode(rectOf: CGSize(width: size.width, height: 5))
-        floorNode.position = CGPoint(x: size.width / 2, y: 50)
-        floorNode.fillColor = SKColor.red
+        // Add Floor (Road)
+        let floorNode = SKSpriteNode(imageNamed: "Road")
+        floorNode.position = CGPoint(x: size.width / 2, y: floorNode.size.height / 2)
         floorNode.physicsBody = SKPhysicsBody(edgeFrom: CGPoint(x: -size.width / 2, y: 0), to: CGPoint(x: size.width, y: 0))
-        // Add Bounce
-//        floorNode.physicsBody?.restitution = 0.3
+        floorNode.zPosition = 1
         floorNode.physicsBody?.categoryBitMask = FloorCategory
         floorNode.physicsBody?.contactTestBitMask = BombCategory
         addChild(floorNode)
@@ -99,7 +125,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let location = touch.location(in: self)
             let node : SKNode = self.atPoint(location)
             if node.name == "bomb" {
-                print("Bomb Touched " + String(counter))
+                startExplosionAnimation(point: node.position)
                 node.removeFromParent()
             }
         }
@@ -124,14 +150,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if currentBombSpawnTime > bombSpawnRate {
             currentBombSpawnTime = 0
             spawnBomb()
-            counter += 1
         }
         
-        var direction = 1
-        if (human.position.x <= 21) {
-             direction = 1
-        } else  if (human.position.x >= size.width - 21) {
-            direction = -1
+
+        if (human.position.x <= 0) {
+            human.position.x = 0
+            human.changeDirection(moveLeft: false)
+        } else if (human.position.x >= size.width) {
+            human.position.x = size.width
+            human.changeDirection(moveLeft: true)
         }
         human.update(deltaTime: dt)
         
@@ -145,21 +172,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             contact.bodyB.node?.physicsBody?.collisionBitMask = 0
         }
         
-        if contact.bodyA.categoryBitMask == HumanCategory || contact.bodyB.categoryBitMask == HumanCategory {
-            handleHumanCollision(contact: contact)
-            
-            return
-        }
-        
-        if contact.bodyA.categoryBitMask == WorldFrameCategory {
+//        if contact.bodyA.categoryBitMask == HumanCategory || contact.bodyB.categoryBitMask == HumanCategory {
+//            handleHumanCollision(contact: contact)
+//
+//            return
+//        }
+        if contact.bodyA.categoryBitMask == HumanCategory {
             contact.bodyB.node?.removeFromParent()
             contact.bodyB.node?.physicsBody = nil
             contact.bodyB.node?.removeAllActions()
-        } else if contact.bodyB.categoryBitMask == WorldFrameCategory {
+            startExplosionAnimation(point: contact.contactPoint)
+            startExplosionAnimation(point: human.position)
+            handleHumanCollision(contact: contact)
+            return
+        } else if contact.bodyB.categoryBitMask == HumanCategory {
             contact.bodyA.node?.removeFromParent()
             contact.bodyA.node?.physicsBody = nil
             contact.bodyA.node?.removeAllActions()
+            startExplosionAnimation(point: contact.contactPoint)
+            startExplosionAnimation(point: human.position)
+            handleHumanCollision(contact: contact)
+            return
         }
+        if contact.bodyA.categoryBitMask == FloorCategory {
+            contact.bodyB.node?.removeFromParent()
+            contact.bodyB.node?.physicsBody = nil
+            contact.bodyB.node?.removeAllActions()
+            startExplosionAnimation(point: contact.contactPoint)
+        } else if contact.bodyB.categoryBitMask == FloorCategory {
+            contact.bodyA.node?.removeFromParent()
+            contact.bodyA.node?.physicsBody = nil
+            contact.bodyA.node?.removeAllActions()
+            startExplosionAnimation(point: contact.contactPoint)
+        }
+        
+       
     }
     
     // Handle Human Collision
@@ -176,6 +223,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case BombCategory:
             print("rain hit the player")
             spawnHuman()
+            
         case WorldFrameCategory:
             spawnHuman()
         default:

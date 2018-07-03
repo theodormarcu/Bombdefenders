@@ -1,0 +1,81 @@
+{ "frames": [
+   {
+    "filename": "GameArt (Explosion) 0.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 166, "h": 166 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 22, "y": 11, "w": 166, "h": 166 },
+    "sourceSize": { "w": 207, "h": 197 },
+    "duration": 100
+   },
+   {
+    "filename": "GameArt (Explosion) 1.aseprite",
+    "frame": { "x": 166, "y": 0, "w": 186, "h": 186 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 11, "y": 0, "w": 186, "h": 186 },
+    "sourceSize": { "w": 207, "h": 197 },
+    "duration": 100
+   },
+   {
+    "filename": "GameArt (Explosion) 2.aseprite",
+    "frame": { "x": 352, "y": 0, "w": 207, "h": 197 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 207, "h": 197 },
+    "sourceSize": { "w": 207, "h": 197 },
+    "duration": 100
+   },
+   {
+    "filename": "GameArt (Explosion) 3.aseprite",
+    "frame": { "x": 559, "y": 0, "w": 207, "h": 197 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 207, "h": 197 },
+    "sourceSize": { "w": 207, "h": 197 },
+    "duration": 100
+   },
+   {
+    "filename": "GameArt (Explosion) 4.aseprite",
+    "frame": { "x": 766, "y": 0, "w": 207, "h": 197 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 207, "h": 197 },
+    "sourceSize": { "w": 207, "h": 197 },
+    "duration": 100
+   },
+   {
+    "filename": "GameArt (Explosion) 5.aseprite",
+    "frame": { "x": 973, "y": 0, "w": 207, "h": 176 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 11, "w": 207, "h": 176 },
+    "sourceSize": { "w": 207, "h": 197 },
+    "duration": 100
+   },
+   {
+    "filename": "GameArt (Explosion) 6.aseprite",
+    "frame": { "x": 1180, "y": 0, "w": 197, "h": 176 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 11, "w": 197, "h": 176 },
+    "sourceSize": { "w": 207, "h": 197 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3-dev",
+  "image": "/Users/tmarcu/Documents/GitHub/Bombdefenders/Graphics_Dev/Explosion@2x.png",
+  "format": "RGBA8888",
+  "size": { "w": 1449, "h": 197 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Explosion", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
