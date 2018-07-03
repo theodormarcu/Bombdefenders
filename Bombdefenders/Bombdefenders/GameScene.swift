@@ -28,10 +28,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let bombHeight = 100
         
         // Define Bomb
-        let bomb = SKShapeNode(rectOf: CGSize(width: bombWidth,
-                                              height: bombHeight))
+        let bomb = SKSpriteNode(imageNamed: "Bomb")
         bomb.position = CGPoint(x: size.width / 2, y:  size.height / 2)
-        bomb.fillColor = SKColor.blue
+        
         bomb.name = "bomb"
         // Add Physics Body
         bomb.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bombWidth,
@@ -43,6 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bomb.physicsBody?.contactTestBitMask = WorldFrameCategory
 //        bomb.physicsBody?.collisionBitMask = 0
         // Add to the Scene
+        bomb.zPosition = 2
         addChild(bomb)
     }
     
@@ -60,7 +60,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func sceneDidLoad() {
-        
+        // background
+        let background = SKSpriteNode(imageNamed: "Background")
+        background.position = CGPoint(x: frame.midX, y: frame.midY)
+        background.zPosition = 0
+        addChild(background)
         // Set Up World Frame (To Delete Stuff)
         var worldFrame = frame
         worldFrame.origin.x -= 100
@@ -123,7 +127,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             counter += 1
         }
         
+        var direction = 1
+        if (human.position.x <= 21) {
+             direction = 1
+        } else  if (human.position.x >= size.width - 21) {
+            direction = -1
+        }
         human.update(deltaTime: dt)
+        
     }
     
     // Detect Collisions
