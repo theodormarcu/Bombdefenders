@@ -13,14 +13,14 @@ public class HumanSprite : SKSpriteNode {
     private let movementSpeed : CGFloat = 100
     private var moveLeft : Bool
     
-    init(moveLeft: Bool) {
-        let texture = SKTexture(imageNamed: "Player_Male")
+    init(moveLeft: Bool, playerTexture: SKTexture) {
         self.moveLeft = moveLeft
-        super.init(texture: texture, color: UIColor.clear, size: texture.size())
+        super.init(texture: playerTexture, color: UIColor.clear, size: playerTexture.size())
         super.zPosition = 3
-        super.physicsBody = SKPhysicsBody(circleOfRadius: texture.size().width / 2)
+        super.physicsBody = SKPhysicsBody(circleOfRadius: playerTexture.size().width / 2)
         super.physicsBody?.categoryBitMask = HumanCategory
         super.physicsBody?.contactTestBitMask = BombCategory | WorldFrameCategory
+        super.physicsBody?.collisionBitMask = FloorCategory
     }
     
     
@@ -28,16 +28,14 @@ public class HumanSprite : SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    public static func newInstance() -> HumanSprite {
-//        let humanSprite = HumanSprite(imageNamed: "Player_Male")
-//        humanSprite.zPosition = 3
-//        humanSprite.physicsBody = SKPhysicsBody(circleOfRadius: humanSprite.size.width / 2)
-//        humanSprite.physicsBody?.categoryBitMask = HumanCategory
-//        humanSprite.physicsBody?.contactTestBitMask = BombCategory | WorldFrameCategory
-//        return humanSprite
-//    }
-//
     public func update(deltaTime : TimeInterval) {
+        if (super.position.x <= 0) {
+            super.position.x = 0
+            self.changeDirection(moveLeft: false)
+        } else if (super.position.x >= UIScreen.main.bounds.size.width) {
+            super.position.x = UIScreen.main.bounds.size.width
+            self.changeDirection(moveLeft: true)
+        }
         if moveLeft {
             // Move left
             position.x -= movementSpeed * CGFloat(deltaTime)

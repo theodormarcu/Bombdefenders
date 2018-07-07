@@ -17,6 +17,14 @@
 		12C7C5E820EB0342003CBBAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12C7C5E720EB0342003CBBAA /* Assets.xcassets */; };
 		12C7C5EB20EB2CAE003CBBAA /* ExplosionAnimation.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 12C7C5EA20EB2CAE003CBBAA /* ExplosionAnimation.atlas */; };
 		12C7C5ED20EB2E3B003CBBAA /* ExplosionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C5EC20EB2E3B003CBBAA /* ExplosionExtension.swift */; };
+		12C7C5F420EDA4B0003CBBAA /* Pixel Digivolve.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12C7C5F320EDA32A003CBBAA /* Pixel Digivolve.otf */; };
+		12C7C5F620EDA51C003CBBAA /* HudNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C5F520EDA51C003CBBAA /* HudNode.swift */; };
+		12C7C5F920EDB7B2003CBBAA /* Background_Music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 12C7C5F820EDB7B2003CBBAA /* Background_Music.mp3 */; };
+		12C7C5FB20EDB8F7003CBBAA /* Retro_Explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 12C7C5FA20EDB8F7003CBBAA /* Retro_Explosion.wav */; };
+		12C7C5FF20EDBD2F003CBBAA /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C5FE20EDBD2F003CBBAA /* MenuScene.swift */; };
+		12C7C60120EDC973003CBBAA /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C60020EDC973003CBBAA /* SoundManager.swift */; };
+		12C7C60320F054A4003CBBAA /* AnimationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C60220F054A4003CBBAA /* AnimationActions.swift */; };
+		12C7C60520F0551D003CBBAA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C60420F0551D003CBBAA /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +40,14 @@
 		12C7C5E720EB0342003CBBAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		12C7C5EA20EB2CAE003CBBAA /* ExplosionAnimation.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = ExplosionAnimation.atlas; path = ../../Graphics_Dev/Explosion/ExplosionAnimation.atlas; sourceTree = "<group>"; };
 		12C7C5EC20EB2E3B003CBBAA /* ExplosionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplosionExtension.swift; sourceTree = "<group>"; };
+		12C7C5F320EDA32A003CBBAA /* Pixel Digivolve.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pixel Digivolve.otf"; sourceTree = "<group>"; };
+		12C7C5F520EDA51C003CBBAA /* HudNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudNode.swift; sourceTree = "<group>"; };
+		12C7C5F820EDB7B2003CBBAA /* Background_Music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Background_Music.mp3; sourceTree = "<group>"; };
+		12C7C5FA20EDB8F7003CBBAA /* Retro_Explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Retro_Explosion.wav; sourceTree = "<group>"; };
+		12C7C5FE20EDBD2F003CBBAA /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		12C7C60020EDC973003CBBAA /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		12C7C60220F054A4003CBBAA /* AnimationActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationActions.swift; sourceTree = "<group>"; };
+		12C7C60420F0551D003CBBAA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,17 +80,21 @@
 		127589EB20E0136800B72566 /* Bombdefenders */ = {
 			isa = PBXGroup;
 			children = (
+				12C7C5FC20EDBD13003CBBAA /* Scenes */,
+				12C7C5F720EDB7A4003CBBAA /* Sounds */,
+				12C7C5F220EDA305003CBBAA /* Fonts */,
 				12C7C5EA20EB2CAE003CBBAA /* ExplosionAnimation.atlas */,
 				12C7C5E720EB0342003CBBAA /* Assets.xcassets */,
 				12758A0620E01C5C00B72566 /* Sprites */,
 				127589EC20E0136800B72566 /* AppDelegate.swift */,
 				12758A0420E0172300B72566 /* Constants.swift */,
-				127589F220E0136800B72566 /* GameScene.swift */,
 				127589FB20E0136900B72566 /* LaunchScreen.storyboard */,
 				127589F420E0136800B72566 /* GameViewController.swift */,
 				127589FE20E0136900B72566 /* Info.plist */,
 				127589F620E0136800B72566 /* Main.storyboard */,
 				12C7C5EC20EB2E3B003CBBAA /* ExplosionExtension.swift */,
+				12C7C60020EDC973003CBBAA /* SoundManager.swift */,
+				12C7C60420F0551D003CBBAA /* Utils.swift */,
 			);
 			path = Bombdefenders;
 			sourceTree = "<group>";
@@ -83,8 +103,36 @@
 			isa = PBXGroup;
 			children = (
 				12C7C5E320EAF36E003CBBAA /* HumanSprite.swift */,
+				12C7C5F520EDA51C003CBBAA /* HudNode.swift */,
+				12C7C60220F054A4003CBBAA /* AnimationActions.swift */,
 			);
 			path = Sprites;
+			sourceTree = "<group>";
+		};
+		12C7C5F220EDA305003CBBAA /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				12C7C5F320EDA32A003CBBAA /* Pixel Digivolve.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		12C7C5F720EDB7A4003CBBAA /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				12C7C5F820EDB7B2003CBBAA /* Background_Music.mp3 */,
+				12C7C5FA20EDB8F7003CBBAA /* Retro_Explosion.wav */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		12C7C5FC20EDBD13003CBBAA /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				127589F220E0136800B72566 /* GameScene.swift */,
+				12C7C5FE20EDBD2F003CBBAA /* MenuScene.swift */,
+			);
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,7 +193,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12C7C5F420EDA4B0003CBBAA /* Pixel Digivolve.otf in Resources */,
 				12C7C5EB20EB2CAE003CBBAA /* ExplosionAnimation.atlas in Resources */,
+				12C7C5FB20EDB8F7003CBBAA /* Retro_Explosion.wav in Resources */,
+				12C7C5F920EDB7B2003CBBAA /* Background_Music.mp3 in Resources */,
 				127589F820E0136800B72566 /* Main.storyboard in Resources */,
 				12C7C5E820EB0342003CBBAA /* Assets.xcassets in Resources */,
 				127589FD20E0136900B72566 /* LaunchScreen.storyboard in Resources */,
@@ -163,8 +214,13 @@
 				12C7C5E420EAF36E003CBBAA /* HumanSprite.swift in Sources */,
 				127589F520E0136800B72566 /* GameViewController.swift in Sources */,
 				127589ED20E0136800B72566 /* AppDelegate.swift in Sources */,
+				12C7C5F620EDA51C003CBBAA /* HudNode.swift in Sources */,
+				12C7C5FF20EDBD2F003CBBAA /* MenuScene.swift in Sources */,
 				12758A0520E0172300B72566 /* Constants.swift in Sources */,
+				12C7C60520F0551D003CBBAA /* Utils.swift in Sources */,
 				12C7C5ED20EB2E3B003CBBAA /* ExplosionExtension.swift in Sources */,
+				12C7C60320F054A4003CBBAA /* AnimationActions.swift in Sources */,
+				12C7C60120EDC973003CBBAA /* SoundManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

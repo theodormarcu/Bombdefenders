@@ -11,7 +11,7 @@ import SpriteKit
 
 extension SKTextureAtlas {
     func textureArray() -> [SKTexture] {
-        var textureNames = self.textureNames as! [String]
+        var textureNames = self.textureNames 
         
         // They need to be sorted because there's not guarantee the
         // textures will be in the correct order.
