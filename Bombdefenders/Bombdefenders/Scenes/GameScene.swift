@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene, SKPhysicsContactDelegate, BombDelegate {
     // Game Wide Stuff
     private var lastUpdateTime : TimeInterval = 0
     private let utils = Utils() // Useful Random Function
@@ -17,19 +17,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private let animations = AnimationActions() // Explosions
     private let worldNode = SKNode() // Node that contains all moving nodes
     private var gamePaused : Bool = true
+    private var nukeSpawned : Bool = false
     // Players
     // TODO Add this to a function.
     private var human1 : HumanSprite!
+    private let human1Texture = SKTexture(imageNamed: "Player_Male")
     private var human2 : HumanSprite!
+    private let human2Texture = SKTexture(imageNamed: "Player_Female")
     private var human3 : HumanSprite!
+    private let human3Texture = SKTexture(imageNamed: "Player_Robot")
     private let movementSpeed : CGFloat = 100
-    private let buffer: Int = Int(UIImage(imageLiteralResourceName: "Player_Male").size.width)
+    private var buffer: Int = 0
     private var lives : Int = 3
     
-    // Spawner Variables
+    // Bomb Spawner Variables and Textures
     private var currentBombSpawnTime : TimeInterval = 0
     private var bombSpawnRate : TimeInterval = 0.5
     private let random = GKARC4RandomSource()
+    private let bombTexture = SKTexture(imageNamed: "Bomb")
+    private let fatBombTexture = SKTexture(imageNamed: "FatBomb")
+    private let fatBombCrackedTexture = SKTexture(imageNamed: "FatBombCracked")
+    private let nukeBombTexture = SKTexture(imageNamed: "NukeBomb")
+    private let nukeBombCracked1Texture = SKTexture(imageNamed: "NukeBombCracked1")
+    private let nukeBombCracked2Texture = SKTexture(imageNamed: "NukeBombCracked2")
+    private let nukeBombCracked3Texture = SKTexture(imageNamed: "NukeBombCracked3")
     
     // Pause Game
     func pauseGame() {
@@ -45,65 +56,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gamePaused = false
     }
     
-    // Regular Bomb Spawner
-//    private func spawnBomb() {
-//
-//        // Define Bomb
-//        let bomb = SKSpriteNode(imageNamed: "Bomb")
-//        bomb.position = CGPoint(x: size.width / 2, y:  size.height / 2)
-//        bomb.name = "bomb"
-//        
-//        // Bomb Dimensions
-//        // Used to be 60 x 100
-//        let bombWidth = bomb.size.width
-//        let bombHeight = bomb.size.height
-//
-//        
-//        // Add Physics Body
-//        bomb.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bombWidth,
-//                                                             height: bombHeight))
-//        // Determine Random Spawn Position
-//        let randomPosition = abs(CGFloat(random.nextInt()).truncatingRemainder(dividingBy: size.width))
-//        bomb.position = CGPoint(x: randomPosition, y: size.height)
-//        bomb.physicsBody?.categoryBitMask = BombCategory
-//        bomb.physicsBody?.contactTestBitMask = WorldFrameCategory
-//
-//        // Add to the Scene
-//        bomb.zPosition = 2
-//        worldNode.addChild(bomb)
-//    }
-    
-    // Fat Bomb Spawner
-    private func spawnFatBomb() {
+    func didClick(bomb: Bomb) {
 
-        // Define Bomb
-        let fatBomb = SKSpriteNode(imageNamed: "FatBomb")
-        fatBomb.position = CGPoint(x: size.width / 2, y:  size.height / 2)
-        fatBomb.name = "fatBomb"
-        
-        // Bomb Dimensions
-        let bombWidth = fatBomb.size.width
-        let bombHeight = fatBomb.size.height
-        print(bombWidth)
-        print(bombHeight)
-        // Add Physics Body
-        fatBomb.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bombWidth,
-                                                             height: bombHeight))
-        // Determine Random Spawn Position
-        let randomPosition = abs(CGFloat(random.nextInt()).truncatingRemainder(dividingBy: size.width))
-        fatBomb.position = CGPoint(x: randomPosition, y: size.height)
-        fatBomb.physicsBody?.categoryBitMask = BombCategory
-        fatBomb.physicsBody?.contactTestBitMask = WorldFrameCategory
-        fatBomb.physicsBody?.collisionBitMask = 0
-        fatBomb.physicsBody?.linearDamping = 5.0
-        // Add to the Scene
-        fatBomb.zPosition = 2
-        worldNode.addChild(fatBomb)
+        bomb.subtractTaps()
+        // If fatbomb, change texture
+        if (bomb.name == "fatBomb" && bomb.getTaps() == 1) {
+            bomb.changeTexture(newTexture: fatBombCrackedTexture)
+        }
+        // If nukeBomb, change texture
+        if (bomb.name == "nukeBomb") {
+            switch bomb.getTaps() {
+            case 3:
+                bomb.changeTexture(newTexture: nukeBombCracked1Texture)
+            case 2:
+                bomb.changeTexture(newTexture: nukeBombCracked2Texture)
+            default:
+                bomb.changeTexture(newTexture: nukeBombCracked3Texture)
+            }
+        }
+        // Check if enough taps
+        if (bomb.getTaps() <= 0) {
+            if (bomb.name == "nukeBomb") {
+                animations.startNukeExplosionAnimation(point: bomb.position, scene: self)
+                nukeSpawned = false
+            } else {
+                animations.startExplosionAnimation(point: bomb.position, scene: self)
+            }
+            // Increase Score
+            if (lives > 0) {
+                hud.addPoint()
+            }
+            // Play Bomb Explosion Sound
+            bomb.removeFromParent()
+            if SoundManager.sharedInstance.isMuted {
+                return
+            }
+            run(SKAction.playSoundFileNamed("Retro_Explosion.wav", waitForCompletion: true))
+        }
     }
     
     // Called when view appears
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        
         // World Node
         addChild(worldNode)
         // HUD Setup
@@ -111,10 +106,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(hud)
         // Start Countdown To Start
         hud.countdown()
+    
     }
     
     // When Scene Loads
     override func sceneDidLoad() {
+        buffer = Int(human1Texture.size().width)
         // Background
         let background = SKSpriteNode(imageNamed: "Background_2")
         background.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -145,11 +142,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Spawn Player Heads
         // TODO Add this to a function
-        human1 = HumanSprite(moveLeft: utils.randomBool(), playerTexture: SKTexture(imageNamed: "Player_Male"))
+        human1 = HumanSprite(moveLeft: utils.randomBool(), playerTexture: human1Texture)
         human1.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: floorNode.size.height / 2 + human1.size.height / 2)
-        human2 = HumanSprite(moveLeft: utils.randomBool(), playerTexture: SKTexture(imageNamed: "Player_Female"))
+        human2 = HumanSprite(moveLeft: utils.randomBool(), playerTexture: human2Texture)
         human2.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: floorNode.size.height / 2 + human2.size.height / 2)
-        human3 = HumanSprite(moveLeft: utils.randomBool(), playerTexture: SKTexture(imageNamed: "Player_Robot"))
+        human3 = HumanSprite(moveLeft: utils.randomBool(), playerTexture: human3Texture)
         human3.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: floorNode.size.height / 2 + human3.size.height / 2)
         // Add players to world node
         worldNode.addChild(human1)
@@ -158,35 +155,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            let location = touch.location(in: self)
-            let node : SKNode = self.atPoint(location)
-            // If Touched Bomb...
-            if node.name == "bomb" {
-                animations.startExplosionAnimation(point: node.position, scene: self)
-                if (lives > 0) {
-                    hud.addPoint()
-                }
-                // Play Bomb Explosion Sound
-                node.removeFromParent()
-                if SoundManager.sharedInstance.isMuted {
-                    return
-                }
-                run(SKAction.playSoundFileNamed("Retro_Explosion.wav", waitForCompletion: true))
-            }
-            if node.name == "fatBomb" {
-                animations.startExplosionAnimation(point: node.position, scene: self)
-                if (lives > 0) {
-                    hud.addPoint()
-                }
-                // Play Bomb Explosion Sound
-                node.removeFromParent()
-                if SoundManager.sharedInstance.isMuted {
-                    return
-                }
-                run(SKAction.playSoundFileNamed("Retro_Explosion.wav", waitForCompletion: true))
-            }
-        }
+        // Not Used
     }
     
     
@@ -212,11 +181,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if currentBombSpawnTime > bombSpawnRate {
                 currentBombSpawnTime = 0
                 let fatBombRand = utils.randomizer(min: 0, max: 30)
-                if (hud.getScore() >= 15 && fatBombRand >= 20) {
-                    spawnFatBomb()
-                } else {
-                    let bomb = Bomb(parentNode: worldNode, parentScene: self)
-                    bomb.spawnBomb()
+                
+                if (!nukeSpawned) {
+                    if (hud.getScore() > 0 && hud.getScore() % 25 == 0) {
+                        nukeSpawned = true
+                        let nukeBomb = Bomb(parentNode: worldNode, parentScene: self,
+                                            bombType: "nukeBomb", bombTexture: nukeBombTexture)
+                        nukeBomb.delegate = self
+                        nukeBomb.spawnBomb()
+                    } else if (hud.getScore() >= 15 && fatBombRand >= 20) {
+                        let fatBomb = Bomb(parentNode: worldNode, parentScene: self,
+                                           bombType: "fatBomb", bombTexture: fatBombTexture)
+                        fatBomb.delegate = self
+                        fatBomb.spawnBomb()
+                    } else {
+                        let bomb = Bomb(parentNode: worldNode, parentScene: self,
+                                        bombType: "regularBomb", bombTexture: bombTexture)
+                        bomb.delegate = self
+                        bomb.spawnBomb()
+                    }
                 }
             }
             
@@ -236,6 +219,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if contact.bodyA.categoryBitMask == HumanCategory {
+            if (contact.bodyB.node?.name == "nukeBomb") {
+                animations.startNukeExplosionAnimation(point: contact.contactPoint, scene: self)
+                lives = 0
+            }
             contact.bodyB.node?.removeFromParent()
             contact.bodyB.node?.physicsBody = nil
             contact.bodyB.node?.removeAllActions()
@@ -244,6 +231,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             handleHumanCollision(contact: contact)
             return
         } else if contact.bodyB.categoryBitMask == HumanCategory {
+            if (contact.bodyA.node?.name == "nukeBomb") {
+                animations.startNukeExplosionAnimation(point: contact.contactPoint, scene: self)
+                lives = 0
+            }
             contact.bodyA.node?.removeFromParent()
             contact.bodyA.node?.physicsBody = nil
             contact.bodyA.node?.removeAllActions()
@@ -253,6 +244,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             return
         }
         if contact.bodyA.categoryBitMask == FloorCategory {
+            if (contact.bodyB.node?.name == "nukeBomb") {
+                animations.startNukeExplosionAnimation(point: contact.contactPoint, scene: self)
+                lives = 0
+            }
             contact.bodyB.node?.removeFromParent()
             contact.bodyB.node?.physicsBody = nil
             contact.bodyB.node?.removeAllActions()
@@ -263,6 +258,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             run(SKAction.playSoundFileNamed("Retro_Explosion.wav", waitForCompletion: true))
         } else if contact.bodyB.categoryBitMask == FloorCategory {
+            if (contact.bodyA.node?.name == "nukeBomb") {
+                animations.startNukeExplosionAnimation(point: contact.contactPoint, scene: self)
+                lives = 0
+            }
             contact.bodyA.node?.removeFromParent()
             contact.bodyA.node?.physicsBody = nil
             contact.bodyA.node?.removeAllActions()
@@ -298,7 +297,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             lives = lives - 1
             if (lives <= 0) {
                 // Game Over
-//                let transition = SKTransition.fade(with: UIColor(red: 52/255, green: 73/255, blue: 94/255, alpha: 1.0), duration: 0.75)
                 hud.gameOver()
                 pauseGame()
                 for case let child as SKSpriteNode in worldNode.children {

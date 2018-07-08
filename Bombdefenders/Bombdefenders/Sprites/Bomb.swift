@@ -11,15 +11,19 @@ import SpriteKit
 import GameplayKit
 
 class Bomb : SKSpriteNode {
+    weak var delegate: BombDelegate!
     private let random = GKARC4RandomSource()
     private var parentNode : SKNode!
-    init (parentNode: SKNode, parentScene: SKScene, bombType: ) {
+    private var taps : Int!
+    private let animations = AnimationActions() // Explosions
+    
+    init (parentNode: SKNode, parentScene: SKScene, bombType: String, bombTexture: SKTexture) {
         // Define Bomb
         self.parentNode = parentNode
-        let bombTexture = SKTexture(imageNamed: "Bomb")
+        
         super.init(texture: bombTexture, color: UIColor.clear, size: bombTexture.size())
         super.position = CGPoint(x: parentScene.size.width / 2, y:  parentScene.size.height / 2)
-        super.name = "bomb"
+        self.isUserInteractionEnabled = true
 
         // Bomb Dimensions
         // Used to be 60 x 100
@@ -35,6 +39,21 @@ class Bomb : SKSpriteNode {
         super.physicsBody?.categoryBitMask = BombCategory
         super.physicsBody?.contactTestBitMask = WorldFrameCategory
         super.physicsBody?.collisionBitMask = 0
+        switch bombType {
+        case "nukeBomb":
+            super.name = "nukeBomb"
+            self.physicsBody?.linearDamping = 6.0
+            taps = 4
+        case "fatBomb":
+            super.name = "fatBomb"
+            self.physicsBody?.linearDamping = 4.0
+            taps = 2
+        default:
+            super.name = "bomb"
+            taps = 1
+        }
+        
+
         // Add to the Scene
         super.zPosition = 2
     }
@@ -46,5 +65,24 @@ class Bomb : SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public func getTaps() -> Int {
+        return taps
+    }
     
+    public func subtractTaps() {
+        taps = taps - 1
+    }
+    
+    public func changeTexture(newTexture: SKTexture) {
+        super.texture = newTexture
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.delegate?.didClick(bomb: self)
+    }
+    
+}
+
+protocol BombDelegate: class {
+    func didClick(bomb: Bomb)
 }

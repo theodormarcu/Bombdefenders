@@ -32,5 +32,20 @@ class AnimationActions {
             explosion.removeAllActions()
         })
     }
+    
+    // "NUKE" explosion animation
+    func startNukeExplosionAnimation(point: CGPoint, scene: SKScene) {
+        let explosion = SKSpriteNode(texture: textureAtlas[0])
+        explosion.position = point
+        explosion.scale(to: CGSize(width: explosion.size.width * 5, height: explosion.size.height * 5))
+        explosion.zPosition = 4
+        scene.addChild(explosion)
+        let timePerFrame = 0.02
+        let animationAction = SKAction.animate(with: textureAtlas, timePerFrame: timePerFrame)
+        explosion.run(animationAction, completion: {
+            explosion.removeFromParent()
+            explosion.removeAllActions()
+        })
+    }
 
 }
