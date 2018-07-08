@@ -42,32 +42,63 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func resumeGame() {
         worldNode.isPaused = false
         physicsWorld.speed = 1
-        print("RESUMED BOMBS")
         gamePaused = false
     }
     
-    // Bomb Spawner
-    private func spawnBomb() {
-        // Bomb Dimensions
-        let bombWidth = 60
-        let bombHeight = 100
+    // Regular Bomb Spawner
+//    private func spawnBomb() {
+//
+//        // Define Bomb
+//        let bomb = SKSpriteNode(imageNamed: "Bomb")
+//        bomb.position = CGPoint(x: size.width / 2, y:  size.height / 2)
+//        bomb.name = "bomb"
+//        
+//        // Bomb Dimensions
+//        // Used to be 60 x 100
+//        let bombWidth = bomb.size.width
+//        let bombHeight = bomb.size.height
+//
+//        
+//        // Add Physics Body
+//        bomb.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bombWidth,
+//                                                             height: bombHeight))
+//        // Determine Random Spawn Position
+//        let randomPosition = abs(CGFloat(random.nextInt()).truncatingRemainder(dividingBy: size.width))
+//        bomb.position = CGPoint(x: randomPosition, y: size.height)
+//        bomb.physicsBody?.categoryBitMask = BombCategory
+//        bomb.physicsBody?.contactTestBitMask = WorldFrameCategory
+//
+//        // Add to the Scene
+//        bomb.zPosition = 2
+//        worldNode.addChild(bomb)
+//    }
+    
+    // Fat Bomb Spawner
+    private func spawnFatBomb() {
+
         // Define Bomb
-        let bomb = SKSpriteNode(imageNamed: "Bomb")
-        bomb.position = CGPoint(x: size.width / 2, y:  size.height / 2)
+        let fatBomb = SKSpriteNode(imageNamed: "FatBomb")
+        fatBomb.position = CGPoint(x: size.width / 2, y:  size.height / 2)
+        fatBomb.name = "fatBomb"
         
-        bomb.name = "bomb"
+        // Bomb Dimensions
+        let bombWidth = fatBomb.size.width
+        let bombHeight = fatBomb.size.height
+        print(bombWidth)
+        print(bombHeight)
         // Add Physics Body
-        bomb.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bombWidth,
+        fatBomb.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bombWidth,
                                                              height: bombHeight))
         // Determine Random Spawn Position
         let randomPosition = abs(CGFloat(random.nextInt()).truncatingRemainder(dividingBy: size.width))
-        bomb.position = CGPoint(x: randomPosition, y: size.height)
-        bomb.physicsBody?.categoryBitMask = BombCategory
-        bomb.physicsBody?.contactTestBitMask = WorldFrameCategory
-
+        fatBomb.position = CGPoint(x: randomPosition, y: size.height)
+        fatBomb.physicsBody?.categoryBitMask = BombCategory
+        fatBomb.physicsBody?.contactTestBitMask = WorldFrameCategory
+        fatBomb.physicsBody?.collisionBitMask = 0
+        fatBomb.physicsBody?.linearDamping = 5.0
         // Add to the Scene
-        bomb.zPosition = 2
-        worldNode.addChild(bomb)
+        fatBomb.zPosition = 2
+        worldNode.addChild(fatBomb)
     }
     
     // Called when view appears
@@ -85,7 +116,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // When Scene Loads
     override func sceneDidLoad() {
         // Background
-        let background = SKSpriteNode(imageNamed: "Background")
+        let background = SKSpriteNode(imageNamed: "Background_2")
         background.position = CGPoint(x: frame.midX, y: frame.midY)
         background.zPosition = 0
         addChild(background)
@@ -104,7 +135,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.lastUpdateTime = 0
         
         // Add Floor (Road)
-        let floorNode = SKSpriteNode(imageNamed: "Road")
+        let floorNode = SKSpriteNode(imageNamed: "RoadNew")
         floorNode.position = CGPoint(x: size.width / 2, y: floorNode.size.height / 2)
         floorNode.physicsBody = SKPhysicsBody(edgeFrom: CGPoint(x: -size.width / 2, y: 0), to: CGPoint(x: size.width, y: 0))
         floorNode.zPosition = 1
@@ -115,12 +146,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Spawn Player Heads
         // TODO Add this to a function
         human1 = HumanSprite(moveLeft: utils.randomBool(), playerTexture: SKTexture(imageNamed: "Player_Male"))
-        human1.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: 70)
+        human1.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: floorNode.size.height / 2 + human1.size.height / 2)
         human2 = HumanSprite(moveLeft: utils.randomBool(), playerTexture: SKTexture(imageNamed: "Player_Female"))
-        human2.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: 70)
+        human2.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: floorNode.size.height / 2 + human2.size.height / 2)
         human3 = HumanSprite(moveLeft: utils.randomBool(), playerTexture: SKTexture(imageNamed: "Player_Robot"))
-        human3.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: 70)
-        
+        human3.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: floorNode.size.height / 2 + human3.size.height / 2)
+        // Add players to world node
         worldNode.addChild(human1)
         worldNode.addChild(human2)
         worldNode.addChild(human3)
@@ -132,6 +163,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let node : SKNode = self.atPoint(location)
             // If Touched Bomb...
             if node.name == "bomb" {
+                animations.startExplosionAnimation(point: node.position, scene: self)
+                if (lives > 0) {
+                    hud.addPoint()
+                }
+                // Play Bomb Explosion Sound
+                node.removeFromParent()
+                if SoundManager.sharedInstance.isMuted {
+                    return
+                }
+                run(SKAction.playSoundFileNamed("Retro_Explosion.wav", waitForCompletion: true))
+            }
+            if node.name == "fatBomb" {
                 animations.startExplosionAnimation(point: node.position, scene: self)
                 if (lives > 0) {
                     hud.addPoint()
@@ -168,7 +211,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if currentBombSpawnTime > bombSpawnRate {
                 currentBombSpawnTime = 0
-                spawnBomb()
+                let fatBombRand = utils.randomizer(min: 0, max: 30)
+                if (hud.getScore() >= 15 && fatBombRand >= 20) {
+                    spawnFatBomb()
+                } else {
+                    let bomb = Bomb(parentNode: worldNode, parentScene: self)
+                    bomb.spawnBomb()
+                }
             }
             
             // Make Humans Move

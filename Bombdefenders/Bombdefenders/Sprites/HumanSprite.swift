@@ -17,7 +17,7 @@ public class HumanSprite : SKSpriteNode {
         self.moveLeft = moveLeft
         super.init(texture: playerTexture, color: UIColor.clear, size: playerTexture.size())
         super.zPosition = 3
-        super.physicsBody = SKPhysicsBody(circleOfRadius: playerTexture.size().width / 2)
+        super.physicsBody = SKPhysicsBody(circleOfRadius: playerTexture.size().height / 2)
         super.physicsBody?.categoryBitMask = HumanCategory
         super.physicsBody?.contactTestBitMask = BombCategory | WorldFrameCategory
         super.physicsBody?.collisionBitMask = FloorCategory

@@ -81,7 +81,7 @@ class HudNode : SKNode {
         countdownLabel.horizontalAlignmentMode = .center
         countdownLabel.verticalAlignmentMode = .baseline
         countdownLabel.position = CGPoint(x: sceneSize.width/2, y: sceneSize.height/2)
-        countdownLabel.fontSize = 60
+        countdownLabel.fontSize = 50
         countdownLabel.zPosition = 100
         countdownLabel.text = "\(count)"
         
@@ -95,7 +95,7 @@ class HudNode : SKNode {
         
     }
     
-    func countdownAction() {
+    public func countdownAction() {
         count = count - 1
         if (count <= 0) {
             countdownLabel.text = "Go!"
@@ -104,20 +104,23 @@ class HudNode : SKNode {
         }
     }
     
-    func endCountdown() {
+    public func endCountdown() {
         countdownLabel.removeFromParent()
         callingScene.resumeGame()
         addChild(scoreNode)
     }
     
-    func gameOver() {
+    public func gameOver() {
         gameOverLabel.horizontalAlignmentMode = .center
         gameOverLabel.verticalAlignmentMode = .baseline
         gameOverLabel.position = CGPoint(x: sceneSize.width/2, y: sceneSize.height/2)
-        gameOverLabel.fontSize = 60
+        gameOverLabel.fontSize = 50
         gameOverLabel.zPosition = 100
         gameOverLabel.text = "Game Over"
         addChild(gameOverLabel)
     }
     
+    public func getScore() -> Int {
+        return score
+    }
 }

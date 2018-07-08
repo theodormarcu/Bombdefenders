@@ -12,8 +12,8 @@ import SpriteKit
 
 class MenuScene : SKScene {
     
-    let startButtonTexture = SKTexture(imageNamed: "ButtonStart")
-    let startButtonPressedTexture = SKTexture(imageNamed: "ButtonStartPressed")
+    let startButtonTexture = SKTexture(imageNamed: "ButtonStart2")
+    let startButtonPressedTexture = SKTexture(imageNamed: "ButtonStart2Pressed")
     let soundButtonTexture = SKTexture(imageNamed: "speaker_on")
     let soundButtonTextureOff = SKTexture(imageNamed: "speaker_off")
     let logoPaneTexture = SKTexture(imageNamed: "LogoPaneRed")
@@ -38,14 +38,14 @@ class MenuScene : SKScene {
         
         //Setup logo - sprite initialized earlier
         logoPane = SKSpriteNode(texture: logoPaneTexture)
-        logoPane.position = CGPoint(x: size.width / 2, y: size.height / 2 + 262)
+        logoPane.position = CGPoint(x: size.width / 2, y: size.height / 2 + 242)
         logoPane.zPosition = 1
         addChild(logoPane)
         logoNode.text = "Bombdefenders"
         //logoNode.fontColor = #colorLiteral(red: 0.9059, green: 0.298, blue: 0.2353, alpha: 1) /* #e74c3c */
         logoNode.fontColor = #colorLiteral(red: 0.9255, green: 0.9412, blue: 0.9451, alpha: 1) /* #ecf0f1 */
-        logoNode.position = CGPoint(x: size.width / 2, y: size.height / 2 + 250)
-        logoNode.fontSize = 40
+        logoNode.position = CGPoint(x: size.width / 2, y: size.height / 2 + 230)
+        logoNode.fontSize = 30
         logoNode.zPosition = 2
         addChild(logoNode)
         
@@ -70,7 +70,7 @@ class MenuScene : SKScene {
         highScoreNode.text = "\(highScore)"
         highScoreNode.fontSize = 90
         highScoreNode.verticalAlignmentMode = .top
-        highScoreNode.position = CGPoint(x: size.width / 2, y: startButton.position.y - startButton.size.height / 2 - 50)
+        highScoreNode.position = CGPoint(x: size.width / 2, y: startButton.position.y - startButton.size.height / 2 - 90)
         highScoreNode.zPosition = 1
         addChild(highScoreNode)
         

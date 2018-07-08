@@ -25,6 +25,7 @@
 		12C7C60120EDC973003CBBAA /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C60020EDC973003CBBAA /* SoundManager.swift */; };
 		12C7C60320F054A4003CBBAA /* AnimationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C60220F054A4003CBBAA /* AnimationActions.swift */; };
 		12C7C60520F0551D003CBBAA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C60420F0551D003CBBAA /* Utils.swift */; };
+		12C7C60720F180A0003CBBAA /* Bomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C60620F180A0003CBBAA /* Bomb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		12C7C60020EDC973003CBBAA /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		12C7C60220F054A4003CBBAA /* AnimationActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationActions.swift; sourceTree = "<group>"; };
 		12C7C60420F0551D003CBBAA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		12C7C60620F180A0003CBBAA /* Bomb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bomb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				12C7C5E320EAF36E003CBBAA /* HumanSprite.swift */,
 				12C7C5F520EDA51C003CBBAA /* HudNode.swift */,
 				12C7C60220F054A4003CBBAA /* AnimationActions.swift */,
+				12C7C60620F180A0003CBBAA /* Bomb.swift */,
 			);
 			path = Sprites;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				127589F520E0136800B72566 /* GameViewController.swift in Sources */,
 				127589ED20E0136800B72566 /* AppDelegate.swift in Sources */,
 				12C7C5F620EDA51C003CBBAA /* HudNode.swift in Sources */,
+				12C7C60720F180A0003CBBAA /* Bomb.swift in Sources */,
 				12C7C5FF20EDBD2F003CBBAA /* MenuScene.swift in Sources */,
 				12758A0520E0172300B72566 /* Constants.swift in Sources */,
 				12C7C60520F0551D003CBBAA /* Utils.swift in Sources */,
