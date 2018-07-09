@@ -12,15 +12,15 @@ import SpriteKit
 
 class HudNode : SKNode {
     private let scoreKey = "BOMBDEFENDERS_HIGHSCORE"
-    private let scoreNode = SKLabelNode(fontNamed: "PixelDigivolve")
+    private let scoreNode = SKLabelNode(fontNamed: "Pixel Digivolve")
     private(set) var score : Int = 0
     private var highScore : Int = 0
     private var showingHighScore = false
-    private let countdownLabel = SKLabelNode(fontNamed: "PixelDigivolve")
+    private let countdownLabel = SKLabelNode(fontNamed: "Pixel Digivolve")
     private var sceneSize : CGSize!
     private var count : Int = 3
     private var callingScene : GameScene!
-    private let gameOverLabel = SKLabelNode(fontNamed: "PixelDigivolve")
+    private let gameOverLabel = SKLabelNode(fontNamed: "Pixel Digivolve")
     
     //Setup hud here
     public func setup(size: CGSize, scene: GameScene) {

@@ -18,6 +18,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BombDelegate {
     private let worldNode = SKNode() // Node that contains all moving nodes
     private var gamePaused : Bool = true
     private var nukeSpawned : Bool = false
+    private let safeAreaInsets = GameViewController.getSafeAreaInsets()
+
     // Players
     // TODO Add this to a function.
     private var human1 : HumanSprite!
@@ -98,7 +100,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BombDelegate {
     // Called when view appears
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "hideAd"), object: nil)
         // World Node
         addChild(worldNode)
         // HUD Setup
@@ -133,7 +135,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BombDelegate {
         
         // Add Floor (Road)
         let floorNode = SKSpriteNode(imageNamed: "RoadNew")
-        floorNode.position = CGPoint(x: size.width / 2, y: floorNode.size.height / 2)
+        floorNode.position = CGPoint(x: size.width / 2, y: safeAreaInsets.bottom * 1.5 + floorNode.size.height / 2)
         floorNode.physicsBody = SKPhysicsBody(edgeFrom: CGPoint(x: -size.width / 2, y: 0), to: CGPoint(x: size.width, y: 0))
         floorNode.zPosition = 1
         floorNode.physicsBody?.categoryBitMask = FloorCategory
@@ -143,11 +145,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BombDelegate {
         // Spawn Player Heads
         // TODO Add this to a function
         human1 = HumanSprite(moveLeft: utils.randomBool(), playerTexture: human1Texture)
-        human1.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: floorNode.size.height / 2 + human1.size.height / 2)
+        human1.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: safeAreaInsets.bottom * 1.5 + floorNode.size.height / 2 + human1.size.height / 2)
         human2 = HumanSprite(moveLeft: utils.randomBool(), playerTexture: human2Texture)
-        human2.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: floorNode.size.height / 2 + human2.size.height / 2)
+        human2.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: safeAreaInsets.bottom * 1.5 + floorNode.size.height / 2 + human2.size.height / 2)
         human3 = HumanSprite(moveLeft: utils.randomBool(), playerTexture: human3Texture)
-        human3.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: floorNode.size.height / 2 + human3.size.height / 2)
+        human3.position = CGPoint(x: utils.randomizer(min: UInt32(buffer), max: UInt32(Int(self.size.width) - buffer)), y: safeAreaInsets.bottom * 1.5 + floorNode.size.height / 2 + human3.size.height / 2)
         // Add players to world node
         worldNode.addChild(human1)
         worldNode.addChild(human2)

@@ -1,0 +1,6 @@
+framework module Pods_Bombdefenders {
+  umbrella header "Pods-Bombdefenders-umbrella.h"
+
+  export *
+  module * { export * }
+}

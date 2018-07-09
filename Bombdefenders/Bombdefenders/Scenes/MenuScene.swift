@@ -12,20 +12,21 @@ import SpriteKit
 
 class MenuScene : SKScene {
     
-    let startButtonTexture = SKTexture(imageNamed: "ButtonStart2")
-    let startButtonPressedTexture = SKTexture(imageNamed: "ButtonStart2Pressed")
+    let startButtonTexture = SKTexture(imageNamed: "Button")
+    let startButtonPressedTexture = SKTexture(imageNamed: "ButtonPressed")
     let soundButtonTexture = SKTexture(imageNamed: "speaker_on")
     let soundButtonTextureOff = SKTexture(imageNamed: "speaker_off")
     let logoPaneTexture = SKTexture(imageNamed: "LogoPaneSmall")
-    
-    let logoNode = SKLabelNode(fontNamed: "PixelDigivolve")
+    let safeAreaInsets = GameViewController.getSafeAreaInsets()
+    let logoNode = SKLabelNode(fontNamed: "Pixel Digivolve")
     var logoPane : SKSpriteNode! = nil
     var startButton : SKSpriteNode! = nil
+    var startButtonText = SKLabelNode(fontNamed: "Pixel Digivolve")
     var soundButton : SKSpriteNode! = nil
     
-    let highScoreNode = SKLabelNode(fontNamed: "PixelDigivolve")
+    let highScoreNode = SKLabelNode(fontNamed: "Pixel Digivolve")
     var copyrightLabel = SKLabelNode(fontNamed: "HelveticaNeue-Italic")
-    
+    var startButtonPos : CGPoint!
     var selectedButton : SKSpriteNode?
     
     override func sceneDidLoad() {
@@ -38,13 +39,13 @@ class MenuScene : SKScene {
         
         //Setup logo - sprite initialized earlier
         logoPane = SKSpriteNode(texture: logoPaneTexture)
-        logoPane.position = CGPoint(x: size.width / 2, y: size.height - 70)
+        logoPane.position = CGPoint(x: size.width / 2, y: size.height - safeAreaInsets.top - 70)
         logoPane.zPosition = 1
         addChild(logoPane)
         logoNode.text = "Bombdefenders"
         //logoNode.fontColor = #colorLiteral(red: 0.9059, green: 0.298, blue: 0.2353, alpha: 1) /* #e74c3c */
         logoNode.fontColor = #colorLiteral(red: 0.9255, green: 0.9412, blue: 0.9451, alpha: 1) /* #ecf0f1 */
-        logoNode.position = CGPoint(x: size.width / 2, y: size.height - 80)
+        logoNode.position = CGPoint(x: size.width / 2, y: size.height - safeAreaInsets.top  - 80)
         logoNode.fontSize = 30
         logoNode.zPosition = 2
         addChild(logoNode)
@@ -54,11 +55,18 @@ class MenuScene : SKScene {
         startButton.position = CGPoint(x: size.width / 2, y: logoPane.position.y - startButton.size.height * 3.5)
         startButton.zPosition = 1
         addChild(startButton)
+        startButtonText.text = "Start"
+        startButtonText.fontColor = #colorLiteral(red: 0.9255, green: 0.9412, blue: 0.9451, alpha: 1) /* #ecf0f1 */
+        startButtonText.position = CGPoint(x: startButton.position.x + 5, y: startButton.position.y - startButtonText.fontSize / 2 + 5)
+        startButtonPos = startButtonText.position
+        startButtonText.fontSize = 40
+        startButtonText.zPosition = 3
+        addChild(startButtonText)
         
-        let edgeMargin : CGFloat = 25
+        let edgeMargin : CGFloat = 50
         //Setup sound button
         soundButton = SKSpriteNode(texture: SoundManager.sharedInstance.isMuted ? soundButtonTextureOff : soundButtonTexture)
-        soundButton.position = CGPoint(x: size.width - soundButton.size.width / 2 - edgeMargin, y: soundButton.size.height / 2 + edgeMargin)
+        soundButton.position = CGPoint(x: safeAreaInsets.left + soundButton.size.width / 2 + edgeMargin / 2, y: safeAreaInsets.bottom + soundButton.size.height + edgeMargin)
         soundButton.zPosition = 1
         addChild(soundButton)
         
@@ -75,11 +83,19 @@ class MenuScene : SKScene {
         addChild(highScoreNode)
         
         // Copyright label
-        copyrightLabel.text = "© Theodor Marcu, theodormarcu.com"
+        let today = Date(timeInterval: 0, since: Date())
+        let year = Calendar.current.component(.year, from: today)
+        copyrightLabel.text = "© Theodor Marcu, \(year)"
         copyrightLabel.fontSize = 10
         copyrightLabel.zPosition = 2
-        copyrightLabel.position = CGPoint(x: size.width / 2, y: 10)
+        copyrightLabel.position = CGPoint(x: size.width / 2, y: safeAreaInsets.bottom + 10 + 50)
         addChild(copyrightLabel)
+    }
+    
+    override func didMove(to view: SKView) {
+        /* Setup your scene here */
+        super.didMove(to: view)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAd"), object: nil)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -135,8 +151,10 @@ class MenuScene : SKScene {
     func handleStartButtonHover(isHovering : Bool) {
         if isHovering {
             startButton.texture = startButtonPressedTexture
+            startButtonText.position = CGPoint(x: startButtonPos.x - 5, y: startButtonPos.y - 5)
         } else {
             startButton.texture = startButtonTexture
+            startButtonText.position = CGPoint(x: startButtonPos.x, y: startButtonPos.y)
         }
     }
     

@@ -13,11 +13,11 @@
 		127589F820E0136800B72566 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 127589F620E0136800B72566 /* Main.storyboard */; };
 		127589FD20E0136900B72566 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 127589FB20E0136900B72566 /* LaunchScreen.storyboard */; };
 		12758A0520E0172300B72566 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12758A0420E0172300B72566 /* Constants.swift */; };
+		128F345C20F2FBAD00D0932B /* Pixel Digivolve.otf in Resources */ = {isa = PBXBuildFile; fileRef = 128F345B20F2FBAD00D0932B /* Pixel Digivolve.otf */; };
 		12C7C5E420EAF36E003CBBAA /* HumanSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C5E320EAF36E003CBBAA /* HumanSprite.swift */; };
 		12C7C5E820EB0342003CBBAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12C7C5E720EB0342003CBBAA /* Assets.xcassets */; };
 		12C7C5EB20EB2CAE003CBBAA /* ExplosionAnimation.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 12C7C5EA20EB2CAE003CBBAA /* ExplosionAnimation.atlas */; };
 		12C7C5ED20EB2E3B003CBBAA /* ExplosionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C5EC20EB2E3B003CBBAA /* ExplosionExtension.swift */; };
-		12C7C5F420EDA4B0003CBBAA /* Pixel Digivolve.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12C7C5F320EDA32A003CBBAA /* Pixel Digivolve.otf */; };
 		12C7C5F620EDA51C003CBBAA /* HudNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C5F520EDA51C003CBBAA /* HudNode.swift */; };
 		12C7C5F920EDB7B2003CBBAA /* Background_Music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 12C7C5F820EDB7B2003CBBAA /* Background_Music.mp3 */; };
 		12C7C5FB20EDB8F7003CBBAA /* Retro_Explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 12C7C5FA20EDB8F7003CBBAA /* Retro_Explosion.wav */; };
@@ -26,6 +26,7 @@
 		12C7C60320F054A4003CBBAA /* AnimationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C60220F054A4003CBBAA /* AnimationActions.swift */; };
 		12C7C60520F0551D003CBBAA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C60420F0551D003CBBAA /* Utils.swift */; };
 		12C7C60720F180A0003CBBAA /* Bomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7C60620F180A0003CBBAA /* Bomb.swift */; };
+		B7BFFE24D6FBA330CCD1FB7D /* Pods_Bombdefenders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D7BB9B580C24389A2482D72 /* Pods_Bombdefenders.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,13 +36,13 @@
 		127589F420E0136800B72566 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		127589F720E0136800B72566 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		127589FC20E0136900B72566 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		127589FE20E0136900B72566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		127589FE20E0136900B72566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = /Users/tmarcu/Documents/GitHub/Bombdefenders/Bombdefenders/Bombdefenders/Info.plist; sourceTree = "<absolute>"; };
 		12758A0420E0172300B72566 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		128F345B20F2FBAD00D0932B /* Pixel Digivolve.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pixel Digivolve.otf"; sourceTree = "<group>"; };
 		12C7C5E320EAF36E003CBBAA /* HumanSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanSprite.swift; sourceTree = "<group>"; };
 		12C7C5E720EB0342003CBBAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		12C7C5EA20EB2CAE003CBBAA /* ExplosionAnimation.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = ExplosionAnimation.atlas; path = ../../Graphics_Dev/Explosion/ExplosionAnimation.atlas; sourceTree = "<group>"; };
 		12C7C5EC20EB2E3B003CBBAA /* ExplosionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplosionExtension.swift; sourceTree = "<group>"; };
-		12C7C5F320EDA32A003CBBAA /* Pixel Digivolve.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pixel Digivolve.otf"; sourceTree = "<group>"; };
 		12C7C5F520EDA51C003CBBAA /* HudNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudNode.swift; sourceTree = "<group>"; };
 		12C7C5F820EDB7B2003CBBAA /* Background_Music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Background_Music.mp3; sourceTree = "<group>"; };
 		12C7C5FA20EDB8F7003CBBAA /* Retro_Explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Retro_Explosion.wav; sourceTree = "<group>"; };
@@ -50,6 +51,9 @@
 		12C7C60220F054A4003CBBAA /* AnimationActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationActions.swift; sourceTree = "<group>"; };
 		12C7C60420F0551D003CBBAA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		12C7C60620F180A0003CBBAA /* Bomb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bomb.swift; sourceTree = "<group>"; };
+		8D7BB9B580C24389A2482D72 /* Pods_Bombdefenders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bombdefenders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C3F18AA7B6C8E9F8C9DFC88 /* Pods-Bombdefenders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bombdefenders.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bombdefenders/Pods-Bombdefenders.debug.xcconfig"; sourceTree = "<group>"; };
+		D0F4D337F485EE4585AB3F5F /* Pods-Bombdefenders.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bombdefenders.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bombdefenders/Pods-Bombdefenders.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7BFFE24D6FBA330CCD1FB7D /* Pods_Bombdefenders.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +73,8 @@
 			children = (
 				127589EB20E0136800B72566 /* Bombdefenders */,
 				127589EA20E0136800B72566 /* Products */,
+				EAF75B5EFD5C7F6992127DB8 /* Pods */,
+				69593A46DCC407818BA00032 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,7 +122,7 @@
 		12C7C5F220EDA305003CBBAA /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				12C7C5F320EDA32A003CBBAA /* Pixel Digivolve.otf */,
+				128F345B20F2FBAD00D0932B /* Pixel Digivolve.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -138,6 +145,23 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
+		69593A46DCC407818BA00032 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8D7BB9B580C24389A2482D72 /* Pods_Bombdefenders.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EAF75B5EFD5C7F6992127DB8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9C3F18AA7B6C8E9F8C9DFC88 /* Pods-Bombdefenders.debug.xcconfig */,
+				D0F4D337F485EE4585AB3F5F /* Pods-Bombdefenders.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -145,6 +169,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 12758A0120E0136900B72566 /* Build configuration list for PBXNativeTarget "Bombdefenders" */;
 			buildPhases = (
+				5026C660CE07904B86FFE5A2 /* [CP] Check Pods Manifest.lock */,
 				127589E520E0136800B72566 /* Sources */,
 				127589E620E0136800B72566 /* Frameworks */,
 				127589E720E0136800B72566 /* Resources */,
@@ -164,6 +189,9 @@
 		127589E120E0136800B72566 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					pixel,
+				);
 				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Theodor Marcu";
@@ -196,17 +224,38 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12C7C5F420EDA4B0003CBBAA /* Pixel Digivolve.otf in Resources */,
 				12C7C5EB20EB2CAE003CBBAA /* ExplosionAnimation.atlas in Resources */,
 				12C7C5FB20EDB8F7003CBBAA /* Retro_Explosion.wav in Resources */,
 				12C7C5F920EDB7B2003CBBAA /* Background_Music.mp3 in Resources */,
 				127589F820E0136800B72566 /* Main.storyboard in Resources */,
 				12C7C5E820EB0342003CBBAA /* Assets.xcassets in Resources */,
+				128F345C20F2FBAD00D0932B /* Pixel Digivolve.otf in Resources */,
 				127589FD20E0136900B72566 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5026C660CE07904B86FFE5A2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Bombdefenders-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		127589E520E0136800B72566 /* Sources */ = {
@@ -366,6 +415,7 @@
 		};
 		12758A0220E0136900B72566 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C3F18AA7B6C8E9F8C9DFC88 /* Pods-Bombdefenders.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -384,6 +434,7 @@
 		};
 		12758A0320E0136900B72566 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0F4D337F485EE4585AB3F5F /* Pods-Bombdefenders.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
