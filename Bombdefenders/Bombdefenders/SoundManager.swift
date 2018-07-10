@@ -51,6 +51,11 @@ class SoundManager : NSObject, AVAudioPlayerDelegate {
         //Just play the next track
         startPlaying()
     }
+    
+    func isSoundOff() -> Bool {
+        return isMuted
+    }
+    
     func toggleMute() -> Bool {
         isMuted = !isMuted
         

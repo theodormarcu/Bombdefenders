@@ -14,8 +14,12 @@ class MenuScene : SKScene {
     
     let startButtonTexture = SKTexture(imageNamed: "Button")
     let startButtonPressedTexture = SKTexture(imageNamed: "ButtonPressed")
-    let soundButtonTexture = SKTexture(imageNamed: "speaker_on")
-    let soundButtonTextureOff = SKTexture(imageNamed: "speaker_off")
+    let soundButtonTexture = SKTexture(imageNamed: "SoundOn")
+    let soundButtonPressedTexture = SKTexture(imageNamed: "SoundOnPressed")
+    let internetButtonTexture = SKTexture(imageNamed: "Internet")
+    let internetButtonPressedTexture = SKTexture(imageNamed: "InternetPressed")
+    let soundButtonTextureOff = SKTexture(imageNamed: "SoundOff")
+    let soundButtonPressedTextureOff = SKTexture(imageNamed: "SoundOffPressed")
     let logoPaneTexture = SKTexture(imageNamed: "LogoPaneSmall")
     let safeAreaInsets = GameViewController.getSafeAreaInsets()
     let logoNode = SKLabelNode(fontNamed: "Pixel Digivolve")
@@ -23,7 +27,7 @@ class MenuScene : SKScene {
     var startButton : SKSpriteNode! = nil
     var startButtonText = SKLabelNode(fontNamed: "Pixel Digivolve")
     var soundButton : SKSpriteNode! = nil
-    
+    var internetButton : SKSpriteNode! = nil
     let highScoreNode = SKLabelNode(fontNamed: "Pixel Digivolve")
     var copyrightLabel = SKLabelNode(fontNamed: "HelveticaNeue-Italic")
     var startButtonPos : CGPoint!
@@ -52,7 +56,7 @@ class MenuScene : SKScene {
         
         //Setup start button
         startButton = SKSpriteNode(texture: startButtonTexture)
-        startButton.position = CGPoint(x: size.width / 2, y: logoPane.position.y - startButton.size.height * 3.5)
+        startButton.position = CGPoint(x: size.width / 2, y: size.height / 2)
         startButton.zPosition = 1
         addChild(startButton)
         startButtonText.text = "Start"
@@ -66,9 +70,15 @@ class MenuScene : SKScene {
         let edgeMargin : CGFloat = 50
         //Setup sound button
         soundButton = SKSpriteNode(texture: SoundManager.sharedInstance.isMuted ? soundButtonTextureOff : soundButtonTexture)
-        soundButton.position = CGPoint(x: safeAreaInsets.left + soundButton.size.width / 2 + edgeMargin / 2, y: safeAreaInsets.bottom + soundButton.size.height + edgeMargin)
+        soundButton.position = CGPoint(x: safeAreaInsets.left + soundButton.size.width / 2 + edgeMargin / 5, y: safeAreaInsets.bottom + soundButton.size.height / 2 + edgeMargin + 10)
         soundButton.zPosition = 1
         addChild(soundButton)
+        
+        // Setup Internet Button
+        internetButton = SKSpriteNode(texture: internetButtonTexture)
+        internetButton.position = CGPoint(x: self.size.width - safeAreaInsets.right - internetButton.size.width / 2 - edgeMargin / 5, y: safeAreaInsets.bottom + internetButton.size.height / 2 + edgeMargin + 10)
+        internetButton.zPosition = 1
+        addChild(internetButton)
         
         //Setup high score node
         let defaults = UserDefaults.standard
@@ -78,7 +88,7 @@ class MenuScene : SKScene {
         highScoreNode.text = "\(highScore)"
         highScoreNode.fontSize = 90
         highScoreNode.verticalAlignmentMode = .top
-        highScoreNode.position = CGPoint(x: size.width / 2, y: startButton.position.y - startButton.size.height * 1.0)
+        highScoreNode.position = CGPoint(x: size.width / 2, y: safeAreaInsets.bottom + internetButton.position.y * 2 + 20)
         highScoreNode.zPosition = 1
         addChild(highScoreNode)
         
@@ -88,7 +98,7 @@ class MenuScene : SKScene {
         copyrightLabel.text = "© Theodor Marcu, \(year)"
         copyrightLabel.fontSize = 10
         copyrightLabel.zPosition = 2
-        copyrightLabel.position = CGPoint(x: size.width / 2, y: safeAreaInsets.bottom + 10 + 50)
+        copyrightLabel.position = CGPoint(x: size.width / 2, y: safeAreaInsets.bottom + 10 + edgeMargin)
         addChild(copyrightLabel)
     }
     
@@ -111,6 +121,9 @@ class MenuScene : SKScene {
             } else if soundButton.contains(touch.location(in: self)) {
                 selectedButton = soundButton
                 handleSoundButtonHover(isHovering: true)
+            } else if internetButton.contains(touch.location(in: self)) {
+                selectedButton = internetButton
+                handleInternetButtonHover(isHovering: true)
             }
         }
     }
@@ -122,6 +135,8 @@ class MenuScene : SKScene {
                 handleStartButtonHover(isHovering: (startButton.contains(touch.location(in: self))))
             } else if selectedButton == soundButton {
                 handleSoundButtonHover(isHovering: (soundButton.contains(touch.location(in: self))))
+            } else if selectedButton == internetButton {
+                handleInternetButtonHover(isHovering: (internetButton.contains(touch.location(in: self))))
             }
         }
     }
@@ -142,6 +157,12 @@ class MenuScene : SKScene {
                 if (soundButton.contains(touch.location(in: self))) {
                     handleSoundButtonClick()
                 }
+            } else if selectedButton == internetButton {
+                handleInternetButtonHover(isHovering: false)
+                
+                if (internetButton.contains(touch.location(in: self))) {
+                    handleInternetButtonClick()
+                }
             }
         }
         
@@ -158,11 +179,31 @@ class MenuScene : SKScene {
         }
     }
     
+    func handleInternetButtonHover(isHovering : Bool) {
+        if isHovering {
+            internetButton.texture = internetButtonPressedTexture
+        } else {
+            internetButton.texture = internetButtonTexture
+        }
+    }
+    
     func handleSoundButtonHover(isHovering : Bool) {
         if isHovering {
-            soundButton.alpha = 0.5
+            if SoundManager.sharedInstance.isSoundOff() {
+                //Is muted
+                soundButton.texture = soundButtonPressedTextureOff
+            } else {
+                //Is not muted
+                soundButton.texture = soundButtonPressedTexture
+            }
         } else {
-            soundButton.alpha = 1.0
+            if SoundManager.sharedInstance.isSoundOff() {
+                //Is muted
+                soundButton.texture = soundButtonTextureOff
+            } else {
+                //Is not muted
+                soundButton.texture = soundButtonTexture
+            }
         }
     }
     
@@ -183,6 +224,12 @@ class MenuScene : SKScene {
         } else {
             //Is not muted
             soundButton.texture = soundButtonTexture
+        }
+    }
+    
+    func handleInternetButtonClick() {
+        if let link = URL(string: "http://bombdefenders.com") {
+            UIApplication.shared.open(link)
         }
     }
 }
