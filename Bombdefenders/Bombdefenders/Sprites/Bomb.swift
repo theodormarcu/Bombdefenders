@@ -55,7 +55,8 @@ class Bomb : SKSpriteNode {
         
 
         // Add to the Scene
-        super.zPosition = 2
+
+        super.zPosition = 5
     }
     
     public func spawnBomb() {

@@ -24,6 +24,7 @@ class AnimationActions {
         let explosion = SKSpriteNode(texture: textureAtlas[0])
         explosion.position = point
         explosion.zPosition = 4
+        explosion.isUserInteractionEnabled = false
         scene.addChild(explosion)
         let timePerFrame = 0.02
         let animationAction = SKAction.animate(with: textureAtlas, timePerFrame: timePerFrame)

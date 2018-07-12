@@ -28,15 +28,15 @@ class GameViewController: UIViewController, GADBannerViewDelegate {
         if let view = self.view as! SKView? {
             view.presentScene(sceneNode)
             view.ignoresSiblingOrder = true
-            view.showsFPS = true
-            view.showsNodeCount = true
+//            view.showsFPS = true
+//            view.showsNodeCount = true
         }
         
         // In this case, we instantiate the banner with desired ad size.
         bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         
         addBannerViewToView(bannerView)
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-4658592860285313/2946137863"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self
