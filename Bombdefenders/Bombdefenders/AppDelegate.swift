@@ -19,7 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         // Initialize the Google Mobile Ads SDK.
         // Sample AdMob app ID: ca-app-pub-3940256099942544~1458002511
-        GADMobileAds.configure(withApplicationID: "ca-app-pub-4658592860285313~6348937076")
+        // Production
+//        GADMobileAds.configure(withApplicationID: "ca-app-pub-4658592860285313~6348937076")
+        // Test
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-3940256099942544~1458002511")
+
         return true
     }
 

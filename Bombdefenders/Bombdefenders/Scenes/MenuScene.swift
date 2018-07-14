@@ -29,7 +29,7 @@ class MenuScene : SKScene {
     var soundButton : SKSpriteNode! = nil
     var internetButton : SKSpriteNode! = nil
     let highScoreNode = SKLabelNode(fontNamed: "Pixel Digivolve")
-    var copyrightLabel = SKLabelNode(fontNamed: "HelveticaNeue-Italic")
+    var copyrightLabel = SKLabelNode(fontNamed: "HelveticaNeue")
     var startButtonPos : CGPoint!
     var selectedButton : SKSpriteNode?
     
@@ -54,9 +54,22 @@ class MenuScene : SKScene {
         logoNode.zPosition = 2
         addChild(logoNode)
         
+        //Setup high score node
+        let defaults = UserDefaults.standard
+        
+        let highScore = defaults.integer(forKey: ScoreKey)
+        
+        highScoreNode.text = "\(highScore)"
+        highScoreNode.fontSize = 90
+        highScoreNode.fontColor = UIColor(red:0.93, green:0.94, blue:0.95, alpha:1.0)//UIColor(red:0.95, green:0.77, blue:0.06, alpha:1.0)
+        highScoreNode.verticalAlignmentMode = .top
+        highScoreNode.position = CGPoint(x: size.width / 2, y: logoPane.position.y - highScoreNode.fontSize * 1.6)
+        highScoreNode.zPosition = 1
+        addChild(highScoreNode)
+        
         //Setup start button
         startButton = SKSpriteNode(texture: startButtonTexture)
-        startButton.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        startButton.position = CGPoint(x: size.width / 2, y:  highScoreNode.position.y - startButton.size.height * 1.6)
         startButton.zPosition = 1
         addChild(startButton)
         startButtonText.text = "Start"
@@ -67,30 +80,19 @@ class MenuScene : SKScene {
         startButtonText.zPosition = 3
         addChild(startButtonText)
         
-        let edgeMargin : CGFloat = 50
         //Setup sound button
         soundButton = SKSpriteNode(texture: SoundManager.sharedInstance.isMuted ? soundButtonTextureOff : soundButtonTexture)
-        soundButton.position = CGPoint(x: safeAreaInsets.left + soundButton.size.width / 2 + edgeMargin / 5, y: safeAreaInsets.bottom + soundButton.size.height / 2 + edgeMargin + 10)
+        soundButton.position = CGPoint(x: startButton.position.x - soundButton.size.width / 1.25, y: startButton.position.y - startButton.size.height  * 1.25)
         soundButton.zPosition = 1
         addChild(soundButton)
-        
+
         // Setup Internet Button
         internetButton = SKSpriteNode(texture: internetButtonTexture)
-        internetButton.position = CGPoint(x: self.size.width - safeAreaInsets.right - internetButton.size.width / 2 - edgeMargin / 5, y: safeAreaInsets.bottom + internetButton.size.height / 2 + edgeMargin + 10)
+        internetButton.position = CGPoint(x: startButton.position.x + internetButton.size.width / 1.25, y: startButton.position.y - startButton.size.height * 1.25)
         internetButton.zPosition = 1
         addChild(internetButton)
         
-        //Setup high score node
-        let defaults = UserDefaults.standard
-        
-        let highScore = defaults.integer(forKey: ScoreKey)
-        
-        highScoreNode.text = "\(highScore)"
-        highScoreNode.fontSize = 90
-        highScoreNode.verticalAlignmentMode = .top
-        highScoreNode.position = CGPoint(x: size.width / 2, y: safeAreaInsets.bottom + internetButton.position.y * 2 + 20)
-        highScoreNode.zPosition = 1
-        addChild(highScoreNode)
+       
         
         // Copyright label
         let today = Date(timeInterval: 0, since: Date())
@@ -98,7 +100,8 @@ class MenuScene : SKScene {
         copyrightLabel.text = "© Theodor Marcu, \(year)"
         copyrightLabel.fontSize = 10
         copyrightLabel.zPosition = 2
-        copyrightLabel.position = CGPoint(x: size.width / 2, y: safeAreaInsets.bottom + 10 + edgeMargin)
+        copyrightLabel.fontColor = UIColor(red:0.20, green:0.29, blue:0.37, alpha:1.0)
+        copyrightLabel.position = CGPoint(x: size.width / 2, y: internetButton.position.y - internetButton.size.height)
         addChild(copyrightLabel)
     }
     
@@ -208,8 +211,6 @@ class MenuScene : SKScene {
     }
     
     func handleStartButtonClick() {
-//        print("start clicked")
-//        let transition = SKTransition.fade(with: UIColor(red: 52/255, green: 73/255, blue: 94/255, alpha: 1.0), duration: 0.75)
         let transition = SKTransition.fade(withDuration: 1.0)
         let gameScene = GameScene(size: size)
         gameScene.scaleMode = scaleMode

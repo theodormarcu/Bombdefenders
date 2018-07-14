@@ -14,7 +14,7 @@ import GoogleMobileAds
 class GameViewController: UIViewController, GADBannerViewDelegate {
     // Google Ad Object
     var bannerView: GADBannerView!
-    
+    var bannerViewHeight : CGSize!
     
 
     override func viewDidLoad() {
@@ -34,9 +34,12 @@ class GameViewController: UIViewController, GADBannerViewDelegate {
         
         // In this case, we instantiate the banner with desired ad size.
         bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        
+        bannerViewHeight = bannerView.adSize.size
         addBannerViewToView(bannerView)
-        bannerView.adUnitID = "ca-app-pub-4658592860285313/2946137863"
+//        bannerView.adUnitID = "ca-app-pub-4658592860285313/2946137863"
+        // Test
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/6300978111"
+
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self
@@ -132,14 +135,19 @@ class GameViewController: UIViewController, GADBannerViewDelegate {
         UIView.animate(withDuration: 1, animations: {
             bannerView.alpha = 1
         })
+        bannerViewHeight = bannerView.adSize.size
     }
     
     /// Tells the delegate an ad request failed.
     func adView(_ bannerView: GADBannerView,
                 didFailToReceiveAdWithError error: GADRequestError) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+        bannerViewHeight = CGSize.zero
     }
     
+    func getBannerHeight() -> CGFloat {
+        return bannerViewHeight.height
+    }
     /// Tells the delegate that a full-screen view will be presented in response
     /// to the user clicking on an ad.
     func adViewWillPresentScreen(_ bannerView: GADBannerView) {

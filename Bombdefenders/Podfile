@@ -7,4 +7,5 @@ target 'Bombdefenders' do
 
   # Pods for Bombdefenders
   pod 'Google-Mobile-Ads-SDK'
+
 end
