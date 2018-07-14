@@ -5,6 +5,9 @@
 //  Created by Theodor Marcu on 6/24/18.
 //  Copyright © 2018 Theodor Marcu. All rights reserved.
 //
+// To Kate Northrop, my eternal love.
+// To my parents, brother, and family.
+// 2018, July 14 -- Theodor Marcu
 
 import UIKit
 import SpriteKit
@@ -36,9 +39,9 @@ class GameViewController: UIViewController, GADBannerViewDelegate {
         bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         bannerViewHeight = bannerView.adSize.size
         addBannerViewToView(bannerView)
-//        bannerView.adUnitID = "ca-app-pub-4658592860285313/2946137863"
+        bannerView.adUnitID = "ca-app-pub-4658592860285313/2946137863"
         // Test
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/6300978111"
+//        bannerView.adUnitID = "ca-app-pub-3940256099942544/6300978111"
 
         bannerView.rootViewController = self
         bannerView.load(GADRequest())

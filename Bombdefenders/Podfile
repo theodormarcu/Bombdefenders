@@ -6,6 +6,9 @@ target 'Bombdefenders' do
   use_frameworks!
 
   # Pods for Bombdefenders
-  pod 'Google-Mobile-Ads-SDK'
+  # pod 'Google-Mobile-Ads-SDK'
+  pod 'Firebase/Core'
+  pod 'Firebase/AdMob'
+
 
 end
