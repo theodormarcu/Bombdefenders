@@ -44,6 +44,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BombDelegate {
     private let nukeBombCracked2Texture = SKTexture(imageNamed: "NukeBombCracked2")
     private let nukeBombCracked3Texture = SKTexture(imageNamed: "NukeBombCracked3")
     
+    // Function to increase difficulty
+    func increaseDifficulty() {
+        if (bombSpawnRate >= 0.2) {
+            bombSpawnRate = bombSpawnRate - 0.025
+        }
+        
+        
+    }
+    
     // Pause Game
     func pauseGame() {
         worldNode.isPaused = true
@@ -191,6 +200,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BombDelegate {
                                             bombType: "nukeBomb", bombTexture: nukeBombTexture)
                         nukeBomb.delegate = self
                         nukeBomb.spawnBomb()
+                        increaseDifficulty()
                     } else if (hud.getScore() >= 15 && fatBombRand >= 20) {
                         let fatBomb = Bomb(parentNode: worldNode, parentScene: self,
                                            bombType: "fatBomb", bombTexture: fatBombTexture)
@@ -249,6 +259,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BombDelegate {
             if (contact.bodyB.node?.name == "nukeBomb") {
                 animations.startNukeExplosionAnimation(point: contact.contactPoint, scene: self)
                 lives = 0
+                // Game Over
+                hud.gameOver()
+                pauseGame()
+                for case let child as SKSpriteNode in worldNode.children {
+                    animations.startExplosionAnimation(point: child.position, scene: self)
+                    child.removeAllActions()
+                    child.removeFromParent()
+                    child.physicsBody = nil
+                }
+                let transition = SKTransition.fade(withDuration: 0.75)
+                
+                let gameScene = MenuScene(size: self.size)
+                gameScene.scaleMode = self.scaleMode
+                
+                let wait = SKAction.wait(forDuration: 1)
+                let action = SKAction.run {
+                    self.view?.presentScene(gameScene, transition: transition)
+                }
+                self.run(SKAction.sequence([wait, action]))
             }
             contact.bodyB.node?.removeFromParent()
             contact.bodyB.node?.physicsBody = nil
@@ -263,6 +292,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BombDelegate {
             if (contact.bodyA.node?.name == "nukeBomb") {
                 animations.startNukeExplosionAnimation(point: contact.contactPoint, scene: self)
                 lives = 0
+                // Game Over
+                hud.gameOver()
+                pauseGame()
+                for case let child as SKSpriteNode in worldNode.children {
+                    animations.startExplosionAnimation(point: child.position, scene: self)
+                    child.removeAllActions()
+                    child.removeFromParent()
+                    child.physicsBody = nil
+                }
+                let transition = SKTransition.fade(withDuration: 0.75)
+                
+                let gameScene = MenuScene(size: self.size)
+                gameScene.scaleMode = self.scaleMode
+                
+                let wait = SKAction.wait(forDuration: 1)
+                let action = SKAction.run {
+                    self.view?.presentScene(gameScene, transition: transition)
+                }
+                self.run(SKAction.sequence([wait, action]))
             }
             contact.bodyA.node?.removeFromParent()
             contact.bodyA.node?.physicsBody = nil
