@@ -17,7 +17,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BombDelegate {
     private let animations = AnimationActions() // Explosions
     private let worldNode = SKNode() // Node that contains all moving nodes
     private var gamePaused : Bool = true
-    private var nukeSpawned : Bool = false
+    private var nukeSpawned : Bool = false // if nuke is currently spawned
+    private var spawnNuke : Bool = false // tell the game to spawn a nuke or not
     private let safeAreaInsets = GameViewController.getSafeAreaInsets()
 
     // Players
@@ -47,7 +48,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BombDelegate {
     // Function to increase difficulty
     func increaseDifficulty() {
         if (bombSpawnRate >= 0.2) {
-            bombSpawnRate = bombSpawnRate - 0.025
+            bombSpawnRate = bombSpawnRate - 0.05
         }
         
         
@@ -96,6 +97,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BombDelegate {
             // Increase Score
             if (lives > 0) {
                 hud.addPoint()
+                if (hud.getScore() % 25 == 0 && !nukeSpawned) {
+                    spawnNuke = true
+                }
+                
             }
             // Play Bomb Explosion Sound
             bomb.removeFromParent()
@@ -194,8 +199,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, BombDelegate {
                 let fatBombRand = utils.randomizer(min: 0, max: 30)
                 
                 if (!nukeSpawned) {
-                    if (hud.getScore() > 0 && hud.getScore() % 25 == 0) {
+                    if (spawnNuke) {
+                        print ("NUKE SPAWNED")
                         nukeSpawned = true
+                        spawnNuke = false
                         let nukeBomb = Bomb(parentNode: worldNode, parentScene: self,
                                             bombType: "nukeBomb", bombTexture: nukeBombTexture)
                         nukeBomb.delegate = self

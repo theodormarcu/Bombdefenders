@@ -50,7 +50,7 @@ class MenuScene : SKScene {
         //logoNode.fontColor = #colorLiteral(red: 0.9059, green: 0.298, blue: 0.2353, alpha: 1) /* #e74c3c */
         logoNode.fontColor = #colorLiteral(red: 0.9255, green: 0.9412, blue: 0.9451, alpha: 1) /* #ecf0f1 */
         logoNode.position = CGPoint(x: size.width / 2, y: size.height - safeAreaInsets.top  - 80)
-        logoNode.fontSize = 30
+        logoNode.fontSize = logoPane.size.height * 0.5
         logoNode.zPosition = 2
         addChild(logoNode)
         
@@ -74,9 +74,9 @@ class MenuScene : SKScene {
         addChild(startButton)
         startButtonText.text = "Start"
         startButtonText.fontColor = #colorLiteral(red: 0.9255, green: 0.9412, blue: 0.9451, alpha: 1) /* #ecf0f1 */
-        startButtonText.position = CGPoint(x: startButton.position.x + 5, y: startButton.position.y - startButtonText.fontSize / 2 + 5)
+        startButtonText.position = CGPoint(x: startButton.position.x + 5, y: startButton.position.y - startButtonText.fontSize / 2 + 2.5)
         startButtonPos = startButtonText.position
-        startButtonText.fontSize = 40
+        startButtonText.fontSize = startButton.size.height * 0.5
         startButtonText.zPosition = 3
         addChild(startButtonText)
         

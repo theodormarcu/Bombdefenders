@@ -23,16 +23,16 @@
                                 <rect key="frame" x="67" y="293" width="240" height="215"/>
                                 <color key="backgroundColor" red="0.17647058823529413" green="0.24313725490196078" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="qMS-yz-rZl" secondAttribute="height" multiplier="15:8" id="PyS-VJ-Ex4"/>
+                                    <constraint firstAttribute="width" secondItem="qMS-yz-rZl" secondAttribute="height" multiplier="48:43" id="gt9-uj-weU"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.17254901960784313" green="0.24313725490196078" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qMS-yz-rZl" secondAttribute="trailing" constant="68" id="Rem-kK-0Do"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="qMS-yz-rZl" secondAttribute="bottom" constant="270" id="SGn-aC-dTp"/>
-                            <constraint firstItem="qMS-yz-rZl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="249" id="hSn-KB-7UT"/>
-                            <constraint firstItem="qMS-yz-rZl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="67" id="nob-Bm-R4J"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="qMS-yz-rZl" secondAttribute="bottom" constant="270" id="6AR-O3-7b7"/>
+                            <constraint firstItem="qMS-yz-rZl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="249" id="Kdh-Zk-eQS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qMS-yz-rZl" secondAttribute="trailing" constant="68" id="YjC-ZG-YeG"/>
+                            <constraint firstItem="qMS-yz-rZl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="67" id="uuH-zu-WVC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
