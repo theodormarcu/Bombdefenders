@@ -443,8 +443,8 @@
 			baseConfigurationReference = 9C3F18AA7B6C8E9F8C9DFC88 /* Pods-Bombdefenders.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KW22K643AZ;
 				INFOPLIST_FILE = Bombdefenders/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -453,8 +453,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.theodormarcu.Bombdefenders;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "649adf7d-2e4f-4567-9494-8bd7d439880c";
-				PROVISIONING_PROFILE_SPECIFIER = "Bombdefenders App Store Distribution";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -465,8 +465,8 @@
 			baseConfigurationReference = D0F4D337F485EE4585AB3F5F /* Pods-Bombdefenders.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KW22K643AZ;
 				INFOPLIST_FILE = Bombdefenders/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -475,8 +475,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.theodormarcu.Bombdefenders;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "649adf7d-2e4f-4567-9494-8bd7d439880c";
-				PROVISIONING_PROFILE_SPECIFIER = "Bombdefenders App Store Distribution";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
