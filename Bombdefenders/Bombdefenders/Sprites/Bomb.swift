@@ -34,7 +34,13 @@ class Bomb : SKSpriteNode {
         super.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bombWidth,
                                                              height: bombHeight))
         // Determine Random Spawn Position
-        let randomPosition = abs(CGFloat(random.nextInt()).truncatingRemainder(dividingBy: parentScene.size.width))
+        var randomPosition = abs(CGFloat(random.nextInt()).truncatingRemainder(dividingBy: parentScene.size.width))
+        if randomPosition < (bombWidth / 2) {
+            randomPosition = (bombWidth / 2)
+        }
+        if randomPosition > (parentScene.size.width  - bombWidth / 2) {
+            randomPosition = parentScene.size.width  - bombWidth / 2
+        }
         super.position = CGPoint(x: randomPosition, y: parentScene.size.height)
         super.physicsBody?.categoryBitMask = BombCategory
         super.physicsBody?.contactTestBitMask = WorldFrameCategory
